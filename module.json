@@ -1,0 +1,34 @@
+{
+  "id": "immersive-and-realistic-views",
+  "title": "Immersive and Realistic Views",
+  "description": "Restores the Alpha 0.4.x translucent side panel and extends it with native Foundry vision controls, multi-token editing, a configurable vision-edge transition, and preserved visual filters.",
+  "version": "0.4.3-alpha.1",
+  "authors": [
+    {
+      "name": "Immersive and Realistic Views contributors"
+    }
+  ],
+  "compatibility": {
+    "minimum": "14",
+    "verified": "14.369",
+    "maximum": "14"
+  },
+  "esmodules": [
+    "scripts/main.js"
+  ],
+  "styles": [
+    "styles/module.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "de",
+      "name": "Deutsch",
+      "path": "lang/de.json"
+    }
+  ]
+}

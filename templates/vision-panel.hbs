@@ -1,0 +1,138 @@
+<div class="irv-panel-content">
+  {{#if hasToken}}
+    <div class="irv-selected-token">
+      <i class="fa-solid fa-users"></i>
+      <div class="irv-selected-list">
+        <strong>{{localize "IRV.Panel.SelectedTokens"}} ({{selectedCount}})</strong>
+        <div class="irv-token-names">
+          {{#each selectedNames}}<span class="irv-token-chip">{{this}}</span>{{/each}}
+        </div>
+      </div>
+    </div>
+
+    {{#if canEdit}}
+      <form data-irv-form>
+        <section class="irv-section vision-section">
+          <header class="irv-section-header"><i class="fa-solid fa-eye"></i><span>{{localize "IRV.Panel.VisionTitle"}}</span></header>
+          <label class="irv-toggle-row">
+            <input type="checkbox" name="visionEnabled" {{#if visionEnabled}}checked{{/if}}>
+            <span>{{localize "IRV.Panel.VisionEnabled"}}</span>
+          </label>
+          <div class="irv-slider-setting">
+            <div class="irv-slider-label">
+              <label for="irv-vision-range">{{localize "IRV.Panel.VisionRange"}}</label>
+              <output data-output-value="visionRange">{{visionRange}}</output>
+            </div>
+            <input id="irv-vision-range" type="range" name="visionRange" min="1" max="500" step="1" value="{{visionRange}}" data-output="visionRange">
+          </div>
+          <div class="irv-slider-setting">
+            <label for="irv-vision-mode">{{localize "IRV.Panel.VisionMode"}}</label>
+            <select id="irv-vision-mode" name="visionMode">
+              {{#each visionModes}}<option value="{{id}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}
+            </select>
+          </div>
+          {{#if detectionModes.length}}
+            <div class="irv-detection-list">
+              <div class="irv-subheading">{{localize "IRV.Panel.DetectionModes"}}</div>
+              {{#each detectionModes}}
+                <div class="irv-detection-row">
+                  <label><input type="checkbox" name="detectionEnabled_{{id}}" {{#if enabled}}checked{{/if}}> {{label}}</label>
+                  <input type="number" name="detectionRange_{{id}}" min="0" max="500" value="{{range}}" title="{{localize "IRV.Panel.DetectionRange"}}">
+                </div>
+              {{/each}}
+            </div>
+          {{/if}}
+          <div class="irv-echo-box" data-echo-section {{#unless showEcho}}hidden{{/unless}}>
+            <label class="irv-toggle-row">
+              <input type="checkbox" name="echoEnabled" {{#if echoEnabled}}checked{{/if}}>
+              <span>{{localize "IRV.Panel.EchoEnabled"}}</span>
+            </label>
+            <p class="irv-control-hint">{{localize "IRV.Panel.EchoDescription"}}</p>
+            <div class="irv-slider-setting">
+              <div class="irv-slider-label"><label>{{localize "IRV.Panel.EchoStrength"}}</label><output data-output-value="echoStrength">{{profile.echoStrength}}%</output></div>
+              <input type="range" name="echoStrength" min="0" max="100" step="1" value="{{profile.echoStrength}}" data-output="echoStrength" data-suffix="%">
+            </div>
+          </div>
+        </section>
+
+        <section class="irv-section boundary-section">
+          <header class="irv-section-header"><i class="fa-solid fa-circle-half-stroke"></i><span>{{localize "IRV.Panel.BoundaryTitle"}}</span></header>
+          <label class="irv-toggle-row"><input type="checkbox" name="transitionEnabled" {{#if profile.transitionEnabled}}checked{{/if}}><span>{{localize "IRV.Panel.BoundaryEnabled"}}</span></label>
+          <div class="irv-slider-setting">
+            <div class="irv-slider-label"><label>{{localize "IRV.Panel.BoundaryWidth"}}</label><output data-output-value="transitionWidthPercent">{{profile.transitionWidthPercent}}%</output></div>
+            <input type="range" name="transitionWidthPercent" min="1" max="75" step="1" value="{{profile.transitionWidthPercent}}" data-output="transitionWidthPercent" data-suffix="%">
+            <p class="irv-control-hint">{{localize "IRV.Panel.BoundaryWidthHint"}}</p>
+          </div>
+          <div class="irv-slider-setting">
+            <div class="irv-slider-label"><label>{{localize "IRV.Panel.BoundaryOpacity"}}</label><output data-output-value="transitionOpacity">{{profile.transitionOpacity}}%</output></div>
+            <input type="range" name="transitionOpacity" min="10" max="100" step="1" value="{{profile.transitionOpacity}}" data-output="transitionOpacity" data-suffix="%">
+          </div>
+        </section>
+
+        <section class="irv-section realistic-section">
+          <header class="irv-section-header"><i class="fa-solid fa-border-all"></i><span>{{localize "IRV.Panel.RealisticTitle"}}</span></header>
+          <p class="irv-description">{{localize "IRV.Panel.RealisticDescription"}}</p>
+          <label class="irv-toggle-row"><input type="checkbox" name="realisticEnabled" {{#if profile.realisticEnabled}}checked{{/if}}><span>{{localize "IRV.Panel.EnableRealistic"}}</span></label>
+          <div class="irv-slider-setting">
+            <div class="irv-slider-label"><label>{{localize "IRV.Panel.DetailLossStart"}}</label><output data-output-value="realisticStartPercent">{{profile.realisticStartPercent}}%</output></div>
+            <input type="range" name="realisticStartPercent" min="0" max="95" step="1" value="{{profile.realisticStartPercent}}" data-output="realisticStartPercent" data-suffix="%">
+          </div>
+          <div class="irv-slider-setting">
+            <div class="irv-slider-label"><label>{{localize "IRV.Panel.FinePixelSize"}}</label><output data-output-value="minPixelSize">{{profile.minPixelSize}} px</output></div>
+            <input type="range" name="minPixelSize" min="2" max="16" step="1" value="{{profile.minPixelSize}}" data-output="minPixelSize" data-suffix=" px">
+          </div>
+          <div class="irv-slider-setting">
+            <div class="irv-slider-label"><label>{{localize "IRV.Panel.CoarsePixelSize"}}</label><output data-output-value="maxPixelSize">{{profile.maxPixelSize}} px</output></div>
+            <input type="range" name="maxPixelSize" min="2" max="24" step="1" value="{{profile.maxPixelSize}}" data-output="maxPixelSize" data-suffix=" px">
+          </div>
+          <div class="irv-slider-setting">
+            <div class="irv-slider-label"><label>{{localize "IRV.Panel.PixelDissolve"}}</label><output data-output-value="realisticTransitionPercent">{{profile.realisticTransitionPercent}}%</output></div>
+            <input type="range" name="realisticTransitionPercent" min="1" max="100" step="1" value="{{profile.realisticTransitionPercent}}" data-output="realisticTransitionPercent" data-suffix="%">
+          </div>
+        </section>
+
+        <section class="irv-section immersive-section">
+          <header class="irv-section-header"><i class="fa-solid fa-eye-low-vision"></i><span>{{localize "IRV.Panel.ImmersiveTitle"}}</span></header>
+          <p class="irv-description">{{localize "IRV.Panel.ImmersiveDescription"}}</p>
+          <label class="irv-toggle-row"><input type="checkbox" name="immersiveEnabled" {{#if profile.immersiveEnabled}}checked{{/if}}><span>{{localize "IRV.Panel.EnableImmersive"}}</span></label>
+          <div class="irv-slider-setting">
+            <div class="irv-slider-label"><label>{{localize "IRV.Panel.PeripheralStart"}}</label><output data-output-value="immersiveStartPercent">{{profile.immersiveStartPercent}}%</output></div>
+            <input type="range" name="immersiveStartPercent" min="10" max="95" step="1" value="{{profile.immersiveStartPercent}}" data-output="immersiveStartPercent" data-suffix="%">
+          </div>
+          <div class="irv-slider-setting">
+            <div class="irv-slider-label"><label>{{localize "IRV.Panel.ImmersiveStrength"}}</label><output data-output-value="immersiveStrength">{{profile.immersiveStrength}}%</output></div>
+            <input type="range" name="immersiveStrength" min="0" max="100" step="1" value="{{profile.immersiveStrength}}" data-output="immersiveStrength" data-suffix="%">
+          </div>
+        </section>
+
+        <section class="irv-section darkness-section">
+          <header class="irv-section-header"><i class="fa-solid fa-moon"></i><span>{{localize "IRV.Panel.DarknessTitle"}}</span></header>
+          <p class="irv-description">{{localize "IRV.Panel.DarknessDescription"}}</p>
+          <label class="irv-toggle-row"><input type="checkbox" name="darknessEnabled" {{#if profile.darknessEnabled}}checked{{/if}}><span>{{localize "IRV.Panel.EnableDarkness"}}</span></label>
+          <div class="irv-slider-setting">
+            <div class="irv-slider-label"><label>{{localize "IRV.Panel.DarknessStart"}}</label><output data-output-value="darknessStartPercent">{{profile.darknessStartPercent}}%</output></div>
+            <input type="range" name="darknessStartPercent" min="50" max="99" step="1" value="{{profile.darknessStartPercent}}" data-output="darknessStartPercent" data-suffix="%">
+          </div>
+          <div class="irv-slider-setting">
+            <div class="irv-slider-label"><label>{{localize "IRV.Panel.DarknessStrength"}}</label><output data-output-value="darknessStrength">{{profile.darknessStrength}}%</output></div>
+            <input type="range" name="darknessStrength" min="0" max="100" step="1" value="{{profile.darknessStrength}}" data-output="darknessStrength" data-suffix="%">
+          </div>
+        </section>
+
+        <p class="irv-footer-note"><i class="fa-solid fa-circle-info"></i> {{localize "IRV.Panel.MultiTokenHint"}}</p>
+        <footer class="irv-panel-footer">
+          <button type="submit" class="irv-save-button"><i class="fa-solid fa-arrows-rotate"></i> {{localize "IRV.Panel.Apply"}}</button>
+        </footer>
+      </form>
+    {{else}}
+      <div class="irv-message">{{selectionMessage}}</div>
+    {{/if}}
+  {{else}}
+    <div class="irv-empty-state">
+      <i class="fa-solid fa-eye"></i>
+      <h3>{{localize "IRV.Panel.NoTokenTitle"}}</h3>
+      <p>{{selectionMessage}}</p>
+      <p>{{localize "IRV.Panel.NoTokenHint"}}</p>
+    </div>
+  {{/if}}
+</div>

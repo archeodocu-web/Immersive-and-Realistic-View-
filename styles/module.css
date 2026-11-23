@@ -1,0 +1,195 @@
+.irv-vision-panel {
+  --irv-accent: #d58a36;
+  --irv-realistic: #8b72b8;
+  --irv-immersive: #5e91b6;
+}
+
+.irv-vision-panel .window-content {
+  padding: 0;
+  overflow-y: auto;
+}
+
+.irv-panel-content {
+  padding: 12px;
+  color: var(--color-text-primary, #eee);
+}
+
+.irv-selected-token {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border-light-2, #555);
+  border-radius: 6px;
+  background: rgba(255,255,255,.035);
+  font-weight: 650;
+}
+
+.irv-selected-token > i { color: var(--irv-accent); }
+.irv-selected-label {
+  margin-left: auto;
+  color: var(--color-text-secondary, #aaa);
+  font-size: .75rem;
+  font-weight: 400;
+}
+
+.irv-section {
+  margin: 0 0 13px;
+  padding: 11px 12px 13px;
+  border: 1px solid var(--color-border-light-2, #555);
+  border-radius: 7px;
+  background: rgba(255,255,255,.025);
+}
+
+.irv-section.realistic-section { border-left: 3px solid var(--irv-realistic); }
+.irv-section.immersive-section { border-left: 3px solid var(--irv-immersive); }
+.irv-section.range-section { border-left: 3px solid var(--irv-accent); }
+.irv-section.darkness-section { border-left: 3px solid #65758f; }
+.darkness-section .irv-section-header { color: #aab8d0; }
+
+.irv-section-header {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 4px;
+  font-size: 1rem;
+  font-weight: 750;
+  letter-spacing: .035em;
+  text-transform: uppercase;
+}
+.irv-section-header i { width: 19px; text-align: center; }
+.realistic-section .irv-section-header { color: #b69cdb; }
+.immersive-section .irv-section-header { color: #91bfdf; }
+.range-section .irv-section-header { color: #e5b16f; }
+
+.irv-description {
+  margin: 4px 0 10px;
+  color: var(--color-text-secondary, #aaa);
+  font-size: .78rem;
+  line-height: 1.4;
+}
+
+.irv-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 9px 0 13px;
+  font-weight: 650;
+  cursor: pointer;
+}
+.irv-toggle-row input { width: 17px; height: 17px; accent-color: var(--irv-accent); }
+
+.irv-slider-setting { margin: 12px 0 8px; }
+.irv-slider-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+  font-size: .83rem;
+}
+.irv-slider-label output {
+  min-width: 48px;
+  padding: 2px 7px;
+  border: 1px solid var(--color-border-light-2, #555);
+  border-radius: 4px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-primary, #eee);
+}
+.irv-slider-setting input[type="range"] { width: 100%; accent-color: var(--irv-accent); }
+
+.irv-footer-note {
+  margin: 10px 2px;
+  color: var(--color-text-secondary, #aaa);
+  font-size: .75rem;
+  line-height: 1.45;
+}
+.irv-footer-note i { color: var(--irv-accent); }
+.irv-panel-footer { position: sticky; bottom: -12px; padding: 10px 0 2px; background: var(--background, #191919); }
+.irv-save-button {
+  display: block;
+  width: 100%;
+  min-height: 38px;
+  border: 1px solid var(--irv-accent);
+  border-radius: 5px;
+  background: linear-gradient(180deg, rgba(213,138,54,.2), rgba(213,138,54,.08));
+  color: var(--color-text-primary, #fff);
+  font-weight: 700;
+}
+.irv-save-button:hover { background: rgba(213,138,54,.28); }
+
+.irv-empty-state, .irv-message {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  min-height: 220px;
+  padding: 35px 20px;
+  text-align: center;
+  color: var(--color-text-secondary, #aaa);
+}
+.irv-empty-state > i { color: var(--irv-accent); font-size: 2rem; }
+.irv-empty-state h3 { margin: 0; color: var(--color-text-primary, #eee); }
+.irv-empty-state p { max-width: 330px; margin: 0; line-height: 1.45; }
+
+.irv-control-hint {
+  margin: 5px 0 2px;
+  color: var(--color-text-secondary, #aaa);
+  font-size: .72rem;
+  line-height: 1.35;
+}
+
+
+/* Alpha 0.4.3: floating translucent panel, letting the scene remain visible. */
+.irv-vision-panel {
+  --irv-accent: #d58a36;
+  --irv-realistic: #9a80c5;
+  --irv-immersive: #6b9fc4;
+  background: transparent !important;
+  box-shadow: 0 12px 38px rgba(0, 0, 0, .48);
+}
+.irv-vision-panel .window-header {
+  background: rgba(17, 20, 28, .78) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,.14);
+}
+.irv-vision-panel .window-content {
+  padding: 0;
+  overflow-y: auto;
+  color: #f0eee9;
+  background: rgba(17, 20, 28, .70) !important;
+  backdrop-filter: blur(12px);
+}
+.irv-panel-content { background: transparent; color: #f0eee9; }
+.irv-selected-token { background: rgba(255,255,255,.075); }
+.irv-selected-list { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.irv-token-names { display: flex; flex-wrap: wrap; gap: 4px; }
+.irv-token-chip {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 10px;
+  background: rgba(213,138,54,.16);
+  border: 1px solid rgba(213,138,54,.32);
+  font-size: .75rem;
+  font-weight: 500;
+}
+.irv-section.vision-section { border-left: 3px solid #d58a36; }
+.irv-section.boundary-section { border-left: 3px solid #75a7ca; }
+.vision-section .irv-section-header { color: #e5b16f; }
+.boundary-section .irv-section-header { color: #9ac3df; }
+.irv-detection-list { margin-top: 12px; padding-top: 9px; border-top: 1px solid rgba(255,255,255,.12); }
+.irv-subheading { margin-bottom: 6px; color: #c9d3dc; font-weight: 700; font-size: .83rem; }
+.irv-detection-row { display: grid; grid-template-columns: minmax(0, 1fr) 78px; align-items: center; gap: 10px; margin: 5px 0; }
+.irv-detection-row label { display: flex; gap: 7px; align-items: center; font-size: .82rem; }
+.irv-detection-row input[type="number"] { width: 78px; }
+.irv-echo-box { margin-top: 12px; padding: 9px 10px; border: 1px solid rgba(105,165,205,.48); border-radius: 6px; background: rgba(64,120,160,.13); }
+.irv-echo-box[hidden] { display: none !important; }
+.irv-vision-panel select,
+.irv-vision-panel input[type="number"] {
+  color: #f1eee8;
+  background: rgba(5,8,14,.52);
+  border-color: rgba(255,255,255,.22);
+}
+.irv-vision-panel select option { color: #f1eee8; background: #20242c; }
+.irv-panel-footer { background: rgba(17,20,28,.88); backdrop-filter: blur(10px); }

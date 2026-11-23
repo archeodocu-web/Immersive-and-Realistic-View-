@@ -1,0 +1,36 @@
+import fs from "node:fs";
+import assert from "node:assert/strict";
+const root = new URL("../", import.meta.url);
+const read = path => fs.readFileSync(new URL(path, root), "utf8");
+const manifest = JSON.parse(read("module.json"));
+const en = JSON.parse(read("lang/en.json"));
+const de = JSON.parse(read("lang/de.json"));
+assert.equal(manifest.id, "immersive-and-realistic-views");
+assert.equal(manifest.version, "0.4.3-alpha.1");
+assert.equal(manifest.compatibility.minimum, "14");
+assert.deepEqual(Object.keys(en).sort(), Object.keys(de).sort(), "Localization keys must match");
+for (const file of [...manifest.esmodules, ...manifest.styles, "templates/vision-panel.hbs", "scripts/apps/vision-panel.js", "scripts/filters/distance-pixelation.js"]) {
+  assert.ok(fs.existsSync(new URL(file, root)), `${file} is missing`);
+}
+const main = read("scripts/main.js");
+const app = read("scripts/apps/vision-panel.js");
+const template = read("templates/vision-panel.hbs");
+const shader = read("scripts/filters/distance-pixelation.js");
+assert.match(main, /getSceneControlButtons/);
+assert.match(main, /controls\?\.tokens/);
+assert.match(main, /new VisionPanel/);
+assert.match(app, /HandlebarsApplicationMixin/);
+assert.match(app, /updateVisionMode/);
+assert.match(app, /"sight\.range"/);
+assert.match(app, /setFlag\(MODULE_ID, FLAG_KEY, profile\)/);
+assert.match(template, /name="visionRange"/);
+assert.match(template, /name="transitionWidthPercent"/);
+assert.match(template, /name="transitionOpacity"/);
+assert.match(template, /name="minPixelSize"/);
+assert.match(template, /name="maxPixelSize"/);
+assert.match(template, /name="darknessStrength"/);
+assert.match(shader, /uBoundaryOpacity/);
+assert.match(shader, /uEchoEnabled/);
+assert.match(shader, /uMinPixelSizes/);
+assert.match(shader, /irvHash/);
+console.log("IRV Alpha 0.4.3 package structure, Foundry V14 vision controls, multi-selection, visual settings, and localization validated.");
